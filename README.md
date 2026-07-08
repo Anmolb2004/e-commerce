@@ -4,7 +4,7 @@ A premium e-commerce concept store built as a design-first engineering exercise.
 Small-batch candles, botanical skincare and fragrance — with an editorial visual
 identity, obsessive micro-interactions, and a fully simulated checkout.
 
-**Live demo:** deploy in one command (see [Deployment](#deployment)) — runs entirely on free tiers.
+**Live demo:** [e-commerce-xi-ashen-94.vercel.app](https://e-commerce-xi-ashen-94.vercel.app/)
 
 ---
 
