@@ -2,13 +2,12 @@
 
 import { useMemo } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { PackageX, MapPin, Mail, CalendarClock } from "lucide-react";
 import type { Order } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
 import { useMounted } from "@/lib/hooks";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 
 function ConfirmCheck() {
   return (
@@ -78,9 +77,9 @@ export function OrderClient({ id }: { id: string }) {
           Orders in this demo live in your browser. This one may belong to
           another device — or another timeline.
         </p>
-        <Link href="/shop" className="mt-8">
-          <Button size="lg">Back to the shop</Button>
-        </Link>
+        <ButtonLink href="/shop" size="lg" className="mt-8">
+          Back to the shop
+        </ButtonLink>
       </div>
     );
   }
@@ -210,14 +209,12 @@ export function OrderClient({ id }: { id: string }) {
         transition={{ delay: 0.8 }}
         className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
       >
-        <Link href="/shop">
-          <Button size="lg">Continue shopping</Button>
-        </Link>
-        <Link href="/">
-          <Button size="lg" variant="outline">
-            Back home
-          </Button>
-        </Link>
+        <ButtonLink href="/shop" size="lg">
+          Continue shopping
+        </ButtonLink>
+        <ButtonLink href="/" size="lg" variant="outline">
+          Back home
+        </ButtonLink>
       </motion.div>
       <p className="mt-8 text-center text-[12px] text-mute">
         This is a simulated order — nothing was charged, and sadly no candle is

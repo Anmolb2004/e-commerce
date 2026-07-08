@@ -83,7 +83,20 @@ export function ProductCard({
           )}
         </div>
 
-        {/* Quick add — desktop hover */}
+        {/* Quick add — always visible on touch, hover bar on desktop */}
+        {product.inStock && (
+          <motion.button
+            onClick={quickAdd}
+            whileTap={{ scale: 0.88 }}
+            aria-label={`Add ${product.name} to cart`}
+            className={cn(
+              "absolute bottom-3 right-3 flex size-10 cursor-pointer items-center justify-center rounded-full shadow-soft backdrop-blur-md transition-colors duration-300 lg:hidden",
+              justAdded ? "bg-pine text-cream" : "bg-cream/90 text-ink"
+            )}
+          >
+            {justAdded ? <Check size={17} /> : <Plus size={17} />}
+          </motion.button>
+        )}
         {product.inStock && (
           <div className="pointer-events-none absolute inset-x-3 bottom-3 hidden translate-y-3 opacity-0 transition-all duration-400 ease-out group-hover:translate-y-0 group-hover:opacity-100 lg:block">
             <button

@@ -7,6 +7,7 @@ const SHOP_LINKS = [
   { label: "Skincare", href: "/shop?category=Skincare" },
   { label: "Fragrance", href: "/shop?category=Fragrance" },
   { label: "Bath & Body", href: "/shop?category=Bath+%26+Body" },
+  { label: "Home & Living", href: "/shop?category=Home" },
   { label: "Botanicals", href: "/shop?category=Botanicals" },
 ];
 
@@ -83,7 +84,14 @@ export function Footer() {
               <ul className="space-y-2.5 text-sm text-cream/80">
                 <li>30-day easy returns</li>
                 <li>Ships in 2–4 days</li>
-                <li>hello@rosee.shop</li>
+                <li>
+                  <a
+                    href="mailto:hello@rosee.shop"
+                    className="transition-colors hover:text-cream"
+                  >
+                    hello@rosee.shop
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

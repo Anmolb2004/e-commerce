@@ -44,9 +44,11 @@ function SuccessCheck() {
 
 export function PaymentOverlay({
   phase,
+  message,
   onRetry,
 }: {
   phase: PaymentPhase | null;
+  message?: string;
   onRetry: () => void;
 }) {
   const [step, setStep] = useState(0);
@@ -76,6 +78,7 @@ export function PaymentOverlay({
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/50 p-4 backdrop-blur-md"
           role="alertdialog"
+          aria-modal="true"
           aria-label="Payment status"
         >
           <motion.div
@@ -139,14 +142,14 @@ export function PaymentOverlay({
                   <ShieldAlert size={34} strokeWidth={1.75} />
                 </motion.div>
                 <p className="mt-6 font-display text-2xl tracking-tight">
-                  Payment declined
+                  {message ? "Payment failed" : "Payment declined"}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-mute">
-                  Your bank declined this card (that&apos;s the demo card ending
-                  in 0000). Try any other card number.
+                  {message ??
+                    "Your bank declined this card (that's the demo card ending in 0000). Try any other card number."}
                 </p>
                 <Button onClick={onRetry} className="mt-7 w-full" size="lg">
-                  Try a different card
+                  {message ? "Back to checkout" : "Try a different card"}
                 </Button>
               </>
             )}

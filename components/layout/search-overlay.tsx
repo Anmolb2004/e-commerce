@@ -62,6 +62,7 @@ export function SearchOverlay() {
           transition={{ duration: 0.25 }}
           className="fixed inset-0 z-[80] overflow-y-auto bg-cream/92 backdrop-blur-2xl"
           role="dialog"
+          aria-modal="true"
           aria-label="Search"
         >
           <div className="mx-auto max-w-3xl px-4 pb-24 pt-20 sm:px-6 md:pt-28">
@@ -91,7 +92,10 @@ export function SearchOverlay() {
                   <X size={18} />
                 </button>
               </div>
-              <p className="mt-3 text-xs uppercase tracking-[0.18em] text-mute">
+              <p
+                aria-live="polite"
+                className="mt-3 text-xs uppercase tracking-[0.18em] text-mute"
+              >
                 {query
                   ? `${results.length} result${results.length === 1 ? "" : "s"}`
                   : "Type to search · esc to close"}

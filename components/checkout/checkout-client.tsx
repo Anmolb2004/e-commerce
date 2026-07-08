@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { cloneElement, useId, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import { PRODUCTS } from "@/lib/products";
 import type { Order } from "@/lib/types";
 import { formatPrice, cn, FREE_SHIPPING_THRESHOLD } from "@/lib/utils";
 import { useMounted } from "@/lib/hooks";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { PaymentOverlay, type PaymentPhase } from "./payment-overlay";
 
 interface FormState {
@@ -58,16 +58,25 @@ function Field({
 }: {
   label: string;
   error?: string;
-  children: React.ReactNode;
+  children: React.ReactElement<React.InputHTMLAttributes<HTMLInputElement>>;
 }) {
+  const id = useId();
   return (
     <div>
-      <label className="mb-1.5 block text-[12px] font-medium uppercase tracking-[0.12em] text-mute">
+      <label
+        htmlFor={id}
+        className="mb-1.5 block text-[12px] font-medium uppercase tracking-[0.12em] text-mute"
+      >
         {label}
       </label>
-      {children}
+      {cloneElement(children, {
+        id,
+        "aria-invalid": error ? true : undefined,
+        "aria-describedby": error ? `${id}-error` : undefined,
+      })}
       {error && (
         <motion.p
+          id={`${id}-error`}
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           className="mt-1.5 text-[12.5px] text-rose-deep"
@@ -103,6 +112,7 @@ export function CheckoutClient() {
   const [form, setForm] = useState<FormState>(INITIAL);
   const [errors, setErrors] = useState<Partial<FormState>>({});
   const [phase, setPhase] = useState<PaymentPhase | null>(null);
+  const [failureMessage, setFailureMessage] = useState<string | undefined>();
 
   const items = lines
     .map((l) => ({
@@ -171,6 +181,11 @@ export function CheckoutClient() {
       const data = await res.json();
 
       if (!data.ok) {
+        // Card declines get the friendly demo copy; other API errors
+        // (out of stock, validation) surface their real message.
+        setFailureMessage(
+          data.code === "card_declined" ? undefined : data.message
+        );
         setPhase("declined");
         return;
       }
@@ -207,6 +222,9 @@ export function CheckoutClient() {
         router.push(`/order/${order.id}`);
       }, 1500);
     } catch {
+      setFailureMessage(
+        "We couldn't reach the payment service. Check your connection and try again."
+      );
       setPhase("declined");
     }
   };
@@ -240,9 +258,9 @@ export function CheckoutClient() {
           Your cart is empty. Wander the shop — the bergamot candle is a good
           place to start.
         </p>
-        <Link href="/shop" className="mt-8">
-          <Button size="lg">Browse the collection</Button>
-        </Link>
+        <ButtonLink href="/shop" size="lg" className="mt-8">
+          Browse the collection
+        </ButtonLink>
       </div>
     );
   }
@@ -486,7 +504,11 @@ export function CheckoutClient() {
         </aside>
       </form>
 
-      <PaymentOverlay phase={phase} onRetry={() => setPhase(null)} />
+      <PaymentOverlay
+        phase={phase}
+        message={failureMessage}
+        onRetry={() => setPhase(null)}
+      />
     </div>
   );
 }

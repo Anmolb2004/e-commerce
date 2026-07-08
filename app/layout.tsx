@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 import { Providers } from "@/components/providers";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -20,7 +21,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rosee.example.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Rosée — Botanical Apothecary",
     template: "%s — Rosée",
@@ -33,6 +34,13 @@ export const metadata: Metadata = {
     description:
       "Small-batch candles, botanical skincare and fragrance, composed for the quiet rituals of the everyday.",
     type: "website",
+    siteName: "Rosée",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rosée — Botanical Apothecary",
+    description:
+      "Small-batch candles, botanical skincare and fragrance, composed for the quiet rituals of the everyday.",
   },
 };
 
@@ -47,9 +55,15 @@ export default function RootLayout({
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-2.5 focus:text-sm focus:text-cream"
+        >
+          Skip to content
+        </a>
         <Providers>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">{children}</main>
           <Footer />
           <CartDrawer />
           <SearchOverlay />

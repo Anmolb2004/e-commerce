@@ -125,7 +125,7 @@ export function ProductInfo({ product }: { product: Product }) {
           {product.inStock && (
             <span
               className={cn(
-                "absolute inline-flex h-full w-full animate-ping rounded-full opacity-60",
+                "absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 motion-reduce:hidden",
                 product.lowStock ? "bg-gold" : "bg-pine"
               )}
             />
@@ -187,14 +187,17 @@ export function ProductInfo({ product }: { product: Product }) {
       </div>
 
       {/* Perks */}
-      <div className="mt-8 grid grid-cols-3 gap-3 rounded-2xl border border-line bg-surface p-4 text-center">
+      <div className="mt-8 grid gap-2 rounded-2xl border border-line bg-surface p-4 sm:grid-cols-3 sm:gap-3 sm:text-center">
         {[
           { icon: Truck, label: "Free shipping $75+" },
           { icon: ShieldCheck, label: "30-day returns" },
           { icon: Recycle, label: "Plastic-free box" },
         ].map((perk) => (
-          <div key={perk.label} className="flex flex-col items-center gap-1.5 py-1">
-            <perk.icon size={17} strokeWidth={1.75} className="text-rose-deep" />
+          <div
+            key={perk.label}
+            className="flex items-center gap-2.5 py-0.5 sm:flex-col sm:gap-1.5 sm:py-1"
+          >
+            <perk.icon size={17} strokeWidth={1.75} className="shrink-0 text-rose-deep" />
             <span className="text-[12px] leading-tight text-ink-soft">
               {perk.label}
             </span>

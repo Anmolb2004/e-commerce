@@ -6,16 +6,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ShoppingBag, ArrowRight, Check } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { useUI } from "@/lib/ui-store";
-import { useLockBody } from "@/lib/hooks";
+import { useLockBody, useKey } from "@/lib/hooks";
 import { PRODUCTS } from "@/lib/products";
 import { formatPrice, FREE_SHIPPING_THRESHOLD } from "@/lib/utils";
 import { QuantityStepper } from "@/components/ui/quantity-stepper";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 
 export function CartDrawer() {
   const { cartOpen, setCartOpen } = useUI();
   const { lines, setQuantity, remove } = useCart();
   useLockBody(cartOpen);
+  useKey("Escape", () => setCartOpen(false), cartOpen);
 
   const items = lines
     .map((l) => ({
@@ -47,6 +48,7 @@ export function CartDrawer() {
             transition={{ type: "spring", stiffness: 300, damping: 34 }}
             className="fixed right-0 top-0 z-[71] flex h-dvh w-full max-w-[26rem] flex-col bg-cream shadow-drawer"
             role="dialog"
+            aria-modal="true"
             aria-label="Shopping cart"
           >
             <div className="flex items-center justify-between border-b border-line px-6 py-5">
@@ -81,11 +83,13 @@ export function CartDrawer() {
                     collection to begin.
                   </p>
                 </div>
-                <Button onClick={() => setCartOpen(false)} className="mt-2">
-                  <Link href="/shop" className="contents">
-                    Explore the shop
-                  </Link>
-                </Button>
+                <ButtonLink
+                  href="/shop"
+                  onClick={() => setCartOpen(false)}
+                  className="mt-2"
+                >
+                  Explore the shop
+                </ButtonLink>
               </div>
             ) : (
               <>
@@ -194,12 +198,15 @@ export function CartDrawer() {
                   <p className="mb-4 text-xs text-mute">
                     Shipping and taxes calculated at checkout.
                   </p>
-                  <Link href="/checkout" onClick={() => setCartOpen(false)} className="block">
-                    <Button size="lg" className="w-full">
-                      Checkout
-                      <ArrowRight size={17} />
-                    </Button>
-                  </Link>
+                  <ButtonLink
+                    href="/checkout"
+                    size="lg"
+                    onClick={() => setCartOpen(false)}
+                    className="w-full"
+                  >
+                    Checkout
+                    <ArrowRight size={17} />
+                  </ButtonLink>
                   <button
                     onClick={() => setCartOpen(false)}
                     className="mt-3 w-full cursor-pointer text-center text-[13px] font-medium text-ink-soft transition-colors hover:text-ink"

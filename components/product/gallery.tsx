@@ -15,7 +15,7 @@ export function Gallery({ images, name }: { images: string[]; name: string }) {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="lg:sticky lg:top-28 lg:self-start"
     >
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-cream-deep shadow-soft">
+      <div className="relative aspect-[4/5] touch-pan-y overflow-hidden rounded-[2rem] bg-cream-deep shadow-soft">
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={index}
@@ -23,7 +23,15 @@ export function Gallery({ images, name }: { images: string[]; name: string }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0"
+            drag={images.length > 1 ? "x" : false}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.12}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -60 && index < images.length - 1)
+                setIndex(index + 1);
+              else if (info.offset.x > 60 && index > 0) setIndex(index - 1);
+            }}
+            className="absolute inset-0 cursor-grab active:cursor-grabbing"
           >
             <Image
               src={images[index]}
@@ -31,7 +39,8 @@ export function Gallery({ images, name }: { images: string[]; name: string }) {
               fill
               priority={index === 0}
               sizes="(max-width: 1024px) 92vw, 46vw"
-              className="object-cover"
+              draggable={false}
+              className="pointer-events-none object-cover"
             />
           </motion.div>
         </AnimatePresence>

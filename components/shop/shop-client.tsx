@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, SlidersHorizontal, X, PackageSearch } from "lucide-react";
 import { PRODUCTS, CATEGORIES, BRANDS } from "@/lib/products";
 import type { Product, SortKey } from "@/lib/types";
-import { useLockBody } from "@/lib/hooks";
+import { useLockBody, useKey } from "@/lib/hooks";
 import { ProductCard } from "./product-card";
 import { FilterPanel, PRICE_OPTIONS, RATING_OPTIONS } from "./filter-panel";
 import { SortMenu, SORT_OPTIONS } from "./sort-menu";
@@ -69,6 +69,7 @@ export function ShopClient() {
   const [query, setQuery] = useState(sp.get("q") ?? "");
   const [sheetOpen, setSheetOpen] = useState(false);
   useLockBody(sheetOpen);
+  useKey("Escape", () => setSheetOpen(false), sheetOpen);
 
   // URL is the single source of truth for filters — shareable and back-button friendly.
   const filters: Filters = useMemo(() => {
@@ -91,14 +92,25 @@ export function ShopClient() {
     };
   }, [sp]);
 
-  const patch = (updates: Partial<Record<string, string | null>>) => {
-    const p = new URLSearchParams(sp.toString());
-    for (const [key, value] of Object.entries(updates)) {
-      if (value) p.set(key, value);
-      else p.delete(key);
-    }
-    router.replace(`/shop${p.size ? `?${p}` : ""}`, { scroll: false });
-  };
+  const patch = useCallback(
+    (updates: Partial<Record<string, string | null>>) => {
+      const p = new URLSearchParams(sp.toString());
+      for (const [key, value] of Object.entries(updates)) {
+        if (value) p.set(key, value);
+        else p.delete(key);
+      }
+      router.replace(`/shop${p.size ? `?${p}` : ""}`, { scroll: false });
+    },
+    [sp, router]
+  );
+
+  // Keep ?q= in sync (debounced) so searches are as shareable as filters.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if ((sp.get("q") ?? "") !== query.trim()) patch({ q: query.trim() || null });
+    }, 350);
+    return () => clearTimeout(t);
+  }, [query, sp, patch]);
 
   const toggleList = (key: "category" | "brand", current: string[], value: string) => {
     const next = current.includes(value)
@@ -110,6 +122,9 @@ export function ShopClient() {
   const products = useMemo(() => applyFilters(filters, query), [filters, query]);
 
   const activeChips: { label: string; clear: () => void }[] = [
+    ...(query.trim()
+      ? [{ label: `“${query.trim()}”`, clear: () => setQuery("") }]
+      : []),
     ...filters.categories.map((c) => ({
       label: c,
       clear: () => toggleList("category", filters.categories, c),
@@ -328,6 +343,7 @@ export function ShopClient() {
               transition={{ type: "spring", stiffness: 300, damping: 34 }}
               className="fixed inset-x-0 bottom-0 z-[71] max-h-[86dvh] overflow-y-auto rounded-t-[2rem] bg-cream lg:hidden"
               role="dialog"
+              aria-modal="true"
               aria-label="Filters"
             >
               <div className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-cream px-6 py-4">

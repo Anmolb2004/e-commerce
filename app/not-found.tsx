@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
@@ -15,14 +14,12 @@ export default function NotFound() {
         the first place. The shop, however, is very much alive.
       </p>
       <div className="mt-9 flex gap-3">
-        <Link href="/shop">
-          <Button size="lg">Browse the shop</Button>
-        </Link>
-        <Link href="/">
-          <Button size="lg" variant="outline">
-            Go home
-          </Button>
-        </Link>
+        <ButtonLink href="/shop" size="lg">
+          Browse the shop
+        </ButtonLink>
+        <ButtonLink href="/" size="lg" variant="outline">
+          Go home
+        </ButtonLink>
       </div>
     </div>
   );

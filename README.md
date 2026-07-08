@@ -87,9 +87,34 @@ components/
 lib/                    catalog + search, cart store, ui store, hooks, utils, types
 ```
 
-Other niceties: JSON-LD product schema, Open Graph metadata, `sitemap.xml`,
-`robots.txt`, route-level loading skeletons, error boundary, image optimization
-via `next/image` (all photography from Unsplash).
+Other niceties: JSON-LD schema (Organization/WebSite on the homepage, Product
+on detail pages), Open Graph + Twitter card metadata with a branded OG image,
+custom favicon, `sitemap.xml`, `robots.txt`, route-level loading skeletons,
+error boundary, skip-to-content link, `⌘K` search, and image optimization via
+`next/image` (all photography from Unsplash). CI (lint + typecheck + build)
+runs on every push via GitHub Actions.
+
+## Design decisions
+
+- **Fraunces + Inter** — a high-contrast serif with true italics gives the
+  editorial voice; Inter stays invisible for UI copy.
+- **One accent, used sparingly** — terracotta rose highlights the single most
+  important element per view; everything else stays in cream/ink/pine.
+- **URL as state** — every shop filter, sort and search lives in the query
+  string, so any view can be shared, bookmarked or restored with Back.
+- **Motion with a house curve** — one easing (`cubic-bezier(0.16,1,0.3,1)`)
+  everywhere, entrances only on first view, and everything collapses gracefully
+  under `prefers-reduced-motion`.
+
+## Known limitations (by design, for the demo)
+
+- Payments are simulated — the mock gateway adds latency and a deterministic
+  decline path; no PSP is integrated.
+- Orders persist in `localStorage`, so a confirmation link only resolves on the
+  device that placed the order.
+- The catalog is a typed in-memory dataset rather than a database — the product
+  API is the seam where one would slot in.
+- Product photography is stock (Unsplash), art-directed to a consistent palette.
 
 ## Running locally
 
@@ -111,6 +136,9 @@ npx vercel --prod
 
 Or push to GitHub and import the repo at [vercel.com/new](https://vercel.com/new)
 (framework auto-detected). Netlify's Next.js runtime works equally well.
+
+Canonical URLs, the sitemap and Open Graph tags resolve automatically from the
+Vercel deployment URL; set `NEXT_PUBLIC_SITE_URL` if you add a custom domain.
 
 ---
 

@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, Leaf, Sparkles } from "lucide-react";
+import { ButtonLink } from "@/components/ui/button";
 import { Rating } from "@/components/ui/rating";
 import { EDITORIAL_IMAGES, getProduct } from "@/lib/products";
 import { formatPrice } from "@/lib/utils";
@@ -54,17 +54,13 @@ export function Hero() {
             from plants we can name, for moments you&apos;ll want to keep.
           </motion.p>
           <motion.div variants={child} className="mt-9 flex flex-wrap items-center gap-3">
-            <Link href="/shop">
-              <Button size="lg">
-                Shop the collection
-                <ArrowRight size={17} />
-              </Button>
-            </Link>
-            <Link href="/#bestsellers">
-              <Button size="lg" variant="outline">
-                Bestsellers
-              </Button>
-            </Link>
+            <ButtonLink href="/shop" size="lg">
+              Shop the collection
+              <ArrowRight size={17} />
+            </ButtonLink>
+            <ButtonLink href="/#bestsellers" size="lg" variant="outline">
+              Bestsellers
+            </ButtonLink>
           </motion.div>
           <motion.div variants={child} className="mt-10 flex items-center gap-3">
             <Rating value={4.8} size={15} />
@@ -132,9 +128,10 @@ export function Hero() {
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: easeOutExpo, delay: 0.9 }}
-            className="absolute -top-4 right-4 rounded-full border border-white/50 bg-white/70 px-4 py-2 text-[12px] font-medium tracking-tight text-ink shadow-soft backdrop-blur-xl sm:right-8"
+            className="absolute -top-4 right-4 flex items-center gap-1.5 rounded-full border border-white/50 bg-white/70 px-4 py-2 text-[12px] font-medium tracking-tight text-ink shadow-soft backdrop-blur-xl sm:right-8"
           >
-            🌿 100% botanical, always
+            <Leaf size={13} className="text-pine" strokeWidth={2} />
+            100% botanical, always
           </motion.div>
         </motion.div>
       </div>

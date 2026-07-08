@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
+import Link from "next/link";
 import { motion, type HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -28,18 +29,16 @@ const sizes: Record<Size, string> = {
   lg: "h-[52px] px-8 text-[15px] gap-2",
 };
 
+const baseClasses =
+  "inline-flex items-center justify-center rounded-full font-medium tracking-tight cursor-pointer select-none transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", children, ...props }, ref) => (
     <motion.button
       ref={ref}
       whileTap={{ scale: 0.97 }}
       transition={{ type: "spring", stiffness: 500, damping: 30 }}
-      className={cn(
-        "inline-flex items-center justify-center rounded-full font-medium tracking-tight cursor-pointer select-none transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed",
-        variants[variant],
-        sizes[size],
-        className
-      )}
+      className={cn(baseClasses, variants[variant], sizes[size], className)}
       {...props}
     >
       {children}
@@ -47,3 +46,34 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   )
 );
 Button.displayName = "Button";
+
+const MotionLink = motion.create(Link);
+
+/** Link with button styling — avoids nesting interactive elements. */
+export function ButtonLink({
+  href,
+  variant = "primary",
+  size = "md",
+  className,
+  onClick,
+  children,
+}: {
+  href: string;
+  variant?: Variant;
+  size?: Size;
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <MotionLink
+      href={href}
+      onClick={onClick}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      className={cn(baseClasses, variants[variant], sizes[size], className)}
+    >
+      {children}
+    </MotionLink>
+  );
+}
