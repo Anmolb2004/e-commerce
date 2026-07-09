@@ -12,12 +12,12 @@ export function SectionHeading({
   link?: { href: string; label: string };
 }) {
   return (
-    <FadeIn className="mb-8 flex flex-wrap items-end justify-between gap-4 sm:mb-10 md:mb-14">
+    <FadeIn className="mb-10 flex flex-wrap items-end justify-between gap-4 md:mb-14">
       <div>
-        <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.22em] text-rose sm:font-medium">
+        <p className="mb-3 text-[12px] font-medium uppercase tracking-[0.22em] text-rose">
           {eyebrow}
         </p>
-        <h2 className="font-display text-[2.35rem] leading-[1.02] tracking-tight text-balance text-ink sm:text-4xl md:text-5xl">
+        <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-balance md:text-5xl">
           {title}
         </h2>
       </div>

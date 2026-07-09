@@ -74,15 +74,6 @@
     background: rgb(178 110 92 / 0.25);
   }
 
-  @media (max-width: 1023px) {
-    .hero-headline {
-      color: var(--color-pine-deep);
-      font-weight: 600;
-      font-variation-settings: "SOFT" 0, "wght" 620, "opsz" 36;
-      -webkit-font-smoothing: antialiased;
-    }
-  }
-
   :focus-visible {
     outline: 2px solid var(--color-rose);
     outline-offset: 3px;
@@ -113,16 +104,4 @@
   );
   background-size: 200% 100%;
   animation: var(--animate-shimmer);
-}
-
-@utility glass-panel {
-  border: 1px solid rgb(226 219 204 / 0.9);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-lift);
-
-  @media (min-width: 640px) {
-    border-color: rgb(255 255 255 / 0.5);
-    background: rgb(255 255 255 / 0.72);
-    backdrop-filter: blur(24px);
-  }
 }

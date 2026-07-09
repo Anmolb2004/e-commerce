@@ -52,7 +52,7 @@ export function ProductCard({
             priority={priority}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className={cn(
-              "object-cover transition-all duration-700 ease-out group-hover:scale-[1.04] max-lg:saturate-[1.04] max-lg:contrast-[1.02]",
+              "object-cover transition-all duration-700 ease-out group-hover:scale-[1.04]",
               product.images[1] && "lg:group-hover:opacity-0",
               !product.inStock && "opacity-60 saturate-[0.7]"
             )}

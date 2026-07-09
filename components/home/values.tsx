@@ -21,17 +21,17 @@ const VALUES = [
 
 export function Values() {
   return (
-    <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20 md:pb-28 lg:px-8">
-      <Stagger className="grid gap-5 rounded-[1.75rem] border border-line bg-gradient-to-b from-surface via-surface to-blush/25 p-7 shadow-soft sm:rounded-[2rem] sm:p-10 sm:from-surface sm:via-surface sm:to-surface md:grid-cols-3 md:gap-10 md:p-14">
+    <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 md:pb-28 lg:px-8">
+      <Stagger className="grid gap-5 rounded-[2rem] border border-line bg-surface p-8 shadow-soft sm:p-10 md:grid-cols-3 md:gap-10 md:p-14">
         {VALUES.map((v) => (
           <StaggerItem key={v.title}>
-            <span className="flex size-12 items-center justify-center rounded-full bg-blush text-rose-deep ring-1 ring-rose/15">
+            <span className="flex size-12 items-center justify-center rounded-full bg-blush text-rose-deep">
               <v.icon size={21} strokeWidth={1.75} />
             </span>
-            <h3 className="mt-5 font-display text-[1.35rem] tracking-tight text-ink sm:text-[22px]">
+            <h3 className="mt-5 font-display text-[22px] tracking-tight">
               {v.title}
             </h3>
-            <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink/80 sm:text-ink-soft">
+            <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-soft">
               {v.body}
             </p>
           </StaggerItem>
