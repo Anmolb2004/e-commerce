@@ -44,7 +44,6 @@ export function Hero() {
           variants={parent}
           initial="hidden"
           animate="visible"
-          className="order-2 lg:order-none"
         >
           <motion.p
             variants={child}
@@ -91,7 +90,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.96, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.2, ease: easeOutExpo, delay: 0.15 }}
-          className="relative order-1 mx-auto w-full max-w-[540px] lg:order-none"
+          className="relative mx-auto w-full max-w-[540px]"
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-lift ring-1 ring-ink/5 sm:rounded-[2rem]">
             <Image
