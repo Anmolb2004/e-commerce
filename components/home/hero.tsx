@@ -18,24 +18,25 @@ const child = {
   hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0, transition: { duration: 1, ease: easeOutExpo } },
 };
+/** Headline stays fully opaque — opacity fade reads as washed-out on mobile. */
+const headline = {
+  hidden: { opacity: 1, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: easeOutExpo } },
+};
 
 export function Hero() {
   const featured = getProduct("damask-rose-recovery-serum")!;
 
   return (
-    <section className="relative overflow-hidden max-lg:bg-gradient-to-b max-lg:from-blush/45 max-lg:via-cream max-lg:to-cream">
-      {/* Ambient washes — tuned for mobile so the fold doesn't read flat */}
+    <section className="relative overflow-hidden max-lg:bg-cream">
+      {/* Washes sit behind the image column on mobile — not under the headline */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-32 -left-24 size-[26rem] rounded-full bg-rose/20 blur-3xl lg:hidden"
+        className="pointer-events-none absolute top-[38%] right-[-22%] size-[24rem] rounded-full bg-blush/55 blur-3xl lg:-top-40 lg:right-[-10%] lg:size-[42rem] lg:bg-blush/50"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-20 right-[-18%] size-[30rem] rounded-full bg-blush/70 blur-3xl max-lg:opacity-90 sm:size-[42rem] sm:-top-40 sm:right-[-10%] sm:bg-blush/50"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-0 left-1/2 size-[22rem] -translate-x-1/2 rounded-full bg-pine/8 blur-3xl lg:hidden"
+        className="pointer-events-none absolute right-[-12%] bottom-8 size-[20rem] rounded-full bg-rose/15 blur-3xl lg:hidden"
       />
 
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 pb-16 pt-10 sm:px-6 sm:gap-12 md:pb-24 md:pt-16 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:pt-20">
@@ -44,17 +45,18 @@ export function Hero() {
           variants={parent}
           initial="hidden"
           animate="visible"
+          className="relative z-10"
         >
           <motion.p
             variants={child}
-            className="mb-5 inline-flex items-center gap-2 rounded-full border border-rose/25 bg-surface/90 px-4 py-2 text-[12px] font-medium uppercase tracking-[0.18em] text-ink sm:border-line sm:bg-surface sm:text-ink-soft"
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-[12px] font-medium uppercase tracking-[0.18em] text-ink-soft"
           >
             <Sparkles size={13} className="text-rose" />
             Botanical apothecary — est. 2021
           </motion.p>
           <motion.h1
-            variants={child}
-            className="font-display text-[clamp(2.75rem,11vw,5.4rem)] leading-[0.98] tracking-tight text-balance text-ink max-lg:font-[520]"
+            variants={headline}
+            className="hero-headline font-display text-[clamp(2.75rem,11vw,5.4rem)] leading-[0.98] tracking-tight text-balance text-ink"
           >
             Rituals for the{" "}
             <em className="text-rose max-lg:text-rose-deep">everyday</em>, gathered
@@ -62,7 +64,7 @@ export function Hero() {
           </motion.h1>
           <motion.p
             variants={child}
-            className="mt-6 max-w-md text-[17px] leading-relaxed text-ink/80 sm:text-ink-soft"
+            className="mt-6 max-w-md text-[17px] leading-relaxed text-ink-soft"
           >
             Small-batch candles, botanical skincare and fragrance — composed
             from plants we can name, for moments you&apos;ll want to keep.
@@ -78,7 +80,7 @@ export function Hero() {
           </motion.div>
           <motion.div variants={child} className="mt-10 flex items-center gap-3">
             <Rating value={4.8} size={15} />
-            <p className="text-sm text-ink/75 sm:text-ink-soft">
+            <p className="text-sm text-ink-soft">
               <span className="font-semibold text-ink">4.8</span> from 1,900+
               reviews
             </p>

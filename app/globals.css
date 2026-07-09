@@ -74,6 +74,15 @@
     background: rgb(178 110 92 / 0.25);
   }
 
+  @media (max-width: 1023px) {
+    .hero-headline {
+      color: var(--color-pine-deep);
+      font-weight: 600;
+      font-variation-settings: "SOFT" 0, "wght" 620, "opsz" 36;
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+
   :focus-visible {
     outline: 2px solid var(--color-rose);
     outline-offset: 3px;
