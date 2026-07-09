@@ -7,7 +7,7 @@ export function NewArrivals() {
   const products = NEW_ARRIVALS.slice(0, 6);
 
   return (
-    <section className="overflow-hidden py-20 md:py-28">
+    <section className="overflow-hidden bg-cream-deep/35 py-16 sm:bg-transparent sm:py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Just arrived"

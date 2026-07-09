@@ -20,16 +20,16 @@ export function Newsletter() {
   };
 
   return (
-    <section id="newsletter" className="scroll-mt-24 bg-cream-deep/60">
-      <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 md:py-28">
+    <section id="newsletter" className="scroll-mt-24 bg-cream-deep max-lg:bg-cream-deep sm:bg-cream-deep/60">
+      <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-20 md:py-28">
         <FadeIn>
-          <p className="mb-4 text-[12px] font-medium uppercase tracking-[0.22em] text-rose">
+          <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.22em] text-rose sm:font-medium">
             The Sunday letter
           </p>
-          <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-balance md:text-5xl">
-            First to know, <em className="text-rose">rarely</em> in your inbox.
+          <h2 className="font-display text-[2.35rem] leading-[1.02] tracking-tight text-balance text-ink sm:text-4xl md:text-5xl">
+            First to know, <em className="text-rose max-lg:text-rose-deep">rarely</em> in your inbox.
           </h2>
-          <p className="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-ink-soft">
+          <p className="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-ink/80 sm:text-ink-soft">
             One letter a month — new editions, studio notes and early access.
             No noise, ever.
           </p>

@@ -25,12 +25,12 @@ const QUOTES = [
 
 export function Testimonials() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:px-8">
       <SectionHeading eyebrow="Kind words" title="Letters from the shelf" />
-      <Stagger className="grid gap-5 md:grid-cols-3">
+      <Stagger className="grid gap-4 sm:gap-5 md:grid-cols-3">
         {QUOTES.map((q) => (
           <StaggerItem key={q.author} className="h-full">
-            <figure className="flex h-full flex-col rounded-2xl border border-line bg-surface p-7 shadow-soft transition-shadow duration-300 hover:shadow-lift">
+            <figure className="flex h-full flex-col rounded-2xl border border-line/90 bg-surface p-6 shadow-soft ring-1 ring-ink/5 transition-shadow duration-300 hover:shadow-lift sm:p-7">
               <Rating value={5} size={14} />
               <blockquote className="mt-5 flex-1 font-display text-[19px] leading-snug tracking-tight text-ink">
                 &ldquo;{q.quote}&rdquo;

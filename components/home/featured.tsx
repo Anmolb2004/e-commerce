@@ -11,7 +11,7 @@ export function Featured() {
   return (
     <section
       id="bestsellers"
-      className="mx-auto max-w-7xl scroll-mt-24 px-4 pb-20 sm:px-6 md:pb-28 lg:px-8"
+      className="mx-auto max-w-7xl scroll-mt-24 bg-cream-deep/35 px-4 pb-16 sm:px-6 sm:pb-20 sm:bg-transparent md:pb-28 lg:px-8"
     >
       <SectionHeading
         eyebrow="Most loved"
